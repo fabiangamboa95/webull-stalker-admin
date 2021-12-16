@@ -1,7 +1,9 @@
+import { Card } from "antd";
+
 const Main = () => {
   return (
-    <div>
-      <h1>Hello World!</h1>
+    <div className="main">
+      <Card title="Main Card"></Card>
     </div>
   );
 };
