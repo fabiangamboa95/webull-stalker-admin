@@ -2,12 +2,13 @@ import { Button, Card, Table, Switch, Typography, Row } from "antd";
 import { useAppConfig } from "@/containers/AppConfigContainer";
 import { ReloadOutlined } from "@ant-design/icons";
 import "./Main.less";
+import { useGainers } from "@/hooks/gainers";
 
 const { Title } = Typography;
 
 const Main = () => {
   const { darkMode, toggleDarkMode } = useAppConfig();
-  const loading = true;
+  const { run, loading, data } = useGainers();
 
   return (
     <div className="main">
@@ -25,7 +26,7 @@ const Main = () => {
               icon={<ReloadOutlined spin={loading} />}
               type="link"
               style={{ marginRight: 10 }}
-              // onClick={reload}
+              onClick={() => run({ limit: 100 })}
             />
             <Title level={5} style={{ marginRight: -15, marginBottom: 0 }}>
               Dark Mode:
@@ -36,6 +37,7 @@ const Main = () => {
         className="card"
       >
         <Table
+          loading={loading}
           size="large"
           columns={[
             { title: "timestamp", dataIndex: "timestamp", key: "timestamp" },
@@ -44,11 +46,24 @@ const Main = () => {
               dataIndex: "latestUpdateTime",
               key: "latestUpdateTime",
             },
+            { title: "rankType", dataIndex: "rankType", key: "rankType" },
             { title: "symbol", dataIndex: "symbol", key: "symbol" },
             { title: "price", dataIndex: "price", key: "price" },
             { title: "volume", dataIndex: "volume", key: "volume" },
-            { title: "changeRatio", dataIndex: "changeRatio", key: "changeRatio" },
+            {
+              title: "% changeRatio",
+              dataIndex: "changeRatio",
+              key: "changeRatio",
+            },
           ]}
+          dataSource={
+            data?.data.map((x: any) => ({
+              ...x,
+              changeRatio: x.changeRatio * 100,
+            })) || []
+          }
+          rowKey={(record) => record.timestamp}
+          pagination={false}
         />
       </Card>
     </div>
