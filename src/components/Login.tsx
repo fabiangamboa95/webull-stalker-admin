@@ -1,4 +1,4 @@
-import { Form, Input, Button, Checkbox, Card } from "antd";
+import { Form, Input, Button, Checkbox, Card, notification } from "antd";
 import "./Login.less";
 import md5 from "crypto-js/md5";
 import { useAppConfig } from "@/containers/AppConfigContainer";
@@ -14,6 +14,13 @@ const Login = () => {
     const passHashCheck = md5(values.password).toString();
     if (nameHashCheck === nameHash && passHashCheck === passHash) {
       login();
+      notification.success({
+        message: "Login Success",
+      });
+    } else {
+      notification.error({
+        message: "Login Failed",
+      });
     }
   };
 

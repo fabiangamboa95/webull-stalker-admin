@@ -1,4 +1,5 @@
 import { useRequest } from "ahooks";
+import { notification } from "antd";
 
 const host = "http://70.231.80.204:5000/gainers";
 
@@ -14,5 +15,7 @@ export const useGainers = () =>
       }).then((res) => res.json()),
     {
       manual: true,
+      onSuccess: () => notification.success({ message: "Gainers loaded" }),
+      onError: () => notification.error({ message: "Gainers failed to load" }),
     }
   );
