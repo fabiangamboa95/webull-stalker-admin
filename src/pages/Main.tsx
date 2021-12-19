@@ -3,12 +3,15 @@ import { useAppConfig } from "@/containers/AppConfigContainer";
 import { ReloadOutlined } from "@ant-design/icons";
 import "./Main.less";
 import { useGainers } from "@/hooks/gainers";
+import Login from "@/components/Login";
 
 const { Title } = Typography;
 
 const Main = () => {
-  const { darkMode, toggleDarkMode } = useAppConfig();
+  const { darkMode, toggleDarkMode, logged } = useAppConfig();
   const { run, loading, data } = useGainers();
+
+  if (!logged) return <Login />;
 
   return (
     <div className="main">
