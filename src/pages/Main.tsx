@@ -90,9 +90,7 @@ const Main = () => {
               dataIndex: "timestamp",
               key: "timestamp",
               render: (timestamp: number) =>
-                `${new Date(Math.round(timestamp * 1000)).toLocaleString()} ${
-                  Math.round(timestamp * 1000) % 1000
-                }ms`,
+                moment.unix(timestamp).format("YYYY-MM-D, HH:mm:ss.SSS"),
             },
           ]}
         />
