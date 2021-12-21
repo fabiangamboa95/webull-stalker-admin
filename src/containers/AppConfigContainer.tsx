@@ -5,7 +5,7 @@ import { createContainer } from "unstated-next";
 const AppConfigContainer = createContainer(() => {
   const [darkMode, { toggle: toggleDarkMode }] = useBoolean(true);
   const [siderCollapsed, { toggle: toggleSiderCollapsed }] = useBoolean(true);
-  const [logged, { setTrue: login, setFalse: logout }] = useBoolean(false);
+  const [logged, { setTrue: login, setFalse: logout }] = useBoolean(true); // ! set to false
 
   return {
     theme: darkMode ? "dark" : "light",
